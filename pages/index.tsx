@@ -2,14 +2,27 @@ import React from "react";
 import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
 import useUser from "@lib/client/useUser";
+import useMutation from "@lib/client/useMutation";
 
 interface ITweetForm {
   tweet: string;
 }
 
 export default () => {
-  const { user } = useUser();
-  const { register } = useForm<ITweetForm>();
+  useUser();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ITweetForm>();
+  const [tweet, { isLoading }] = useMutation("api/tweet");
+
+  const onValid = (tweetData: ITweetForm) => {
+    if (isLoading) return;
+    reset();
+    tweet(tweetData);
+  };
 
   return (
     <Layout>
@@ -21,10 +34,10 @@ export default () => {
           <hr />
         </div>
       ))}
-      <form>
+      <form onSubmit={handleSubmit(onValid)}>
         <textarea
           {...register("tweet", {
-            required: "true",
+            required: "Please write more than 5 letters",
             minLength: {
               value: 5,
               message: "Please write more than 5 letters",
@@ -35,6 +48,7 @@ export default () => {
             },
           })}
         />
+        <p>{errors?.tweet?.message || ""}</p>
         <button>Tweet!</button>
       </form>
     </Layout>

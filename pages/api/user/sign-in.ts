@@ -18,8 +18,9 @@ const handler = async (
 
   const hashedPassword = await bcript.hash(password, 5);
 
+  let user;
   try {
-    await prisma.user.create({
+    user = await prisma.user.create({
       data: {
         username,
         password: hashedPassword,
@@ -33,6 +34,9 @@ const handler = async (
       return res.status(400).json({ ok: false, error: "usernameAlreadyExist" });
     }
   }
+
+  if (!user)
+    return res.status(500).json({ ok: false, error: "creationFailed" });
 
   return res.json({ ok: true });
 };

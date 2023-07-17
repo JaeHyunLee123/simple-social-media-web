@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useReducer } from "react";
 import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
+import useMutation from "lib/client/useMutation";
+import { useRouter } from "next/router";
 
 interface ISignUpForm {
   username: string;
@@ -8,18 +10,30 @@ interface ISignUpForm {
   passwordConfirm: string;
 }
 
+interface IMutationResult {
+  ok: boolean;
+  error?: string;
+}
+
 export default () => {
+  const router = useRouter();
   const {
     register,
-    watch,
     getValues,
     formState: { errors },
     handleSubmit,
   } = useForm<ISignUpForm>({ mode: "all" });
+  const [signIn, { result: mutationResult, isLoading }] =
+    useMutation<IMutationResult>("/api/user/sign-in");
 
   const onValid = (formData: ISignUpForm) => {
-    console.log(watch());
+    if (isLoading) return;
+    signIn(formData);
   };
+
+  useEffect(() => {
+    if (mutationResult?.ok) router.push("/log-in");
+  }, [mutationResult, router]);
 
   return (
     <Layout>
@@ -35,17 +49,17 @@ export default () => {
             },
           })}
           id="username"
-          placeholder="Username"
+          placeholder="Super Duper Nickname"
         />
-        <p>{errors?.username?.message || ""}</p>
+        <p>
+          {mutationResult?.error === "usernameAlreadyExist"
+            ? "This username is already exist"
+            : errors.username?.message || ""}
+        </p>
         <label htmlFor="password">Password</label>
         <input
           {...register("password", {
             required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password should be longer than 8 letters",
-            },
             pattern: {
               value:
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,

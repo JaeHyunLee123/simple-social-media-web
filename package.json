@@ -30,5 +30,8 @@
   },
   "license": "ISC",
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0"
+  }
 }

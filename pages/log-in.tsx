@@ -3,6 +3,7 @@ import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
 import useMutation from "@lib/client/useMutation";
 import { useRouter } from "next/router";
+import type { ErrorMessage } from "@lib/server/withHandler";
 
 interface ILoginForm {
   username: string;
@@ -10,7 +11,7 @@ interface ILoginForm {
 }
 interface IMutationResult {
   ok: boolean;
-  error?: string;
+  error?: ErrorMessage;
 }
 
 export default () => {

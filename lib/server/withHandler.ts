@@ -1,7 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+export type ErrorMessage =
+  | "requireEveryData"
+  | "passwordNotConfirmed"
+  | "usernameAlreadyExist"
+  | "passwordIncorrect"
+  | "noUserExist";
+
 export interface IResposeType {
   ok: boolean;
+  error?: ErrorMessage;
   [key: string]: any;
 }
 

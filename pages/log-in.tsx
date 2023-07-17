@@ -79,7 +79,7 @@ export default () => {
           })}
           id="password"
           type="password"
-          onChange={() => setIsPasswordCorrect(false)}
+          onChange={() => setIsPasswordCorrect(true)}
         />
         <p>
           {isPasswordCorrect

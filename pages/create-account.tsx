@@ -15,7 +15,7 @@ export default () => {
     getValues,
     formState: { errors },
     handleSubmit,
-  } = useForm<ISignUpForm>();
+  } = useForm<ISignUpForm>({ mode: "all" });
 
   const onValid = (formData: ISignUpForm) => {
     console.log(watch());

@@ -8,7 +8,7 @@ interface ITweetForm {
 }
 
 export default () => {
-  //const { user } = useUser();
+  const { user } = useUser();
   const { register } = useForm<ITweetForm>();
 
   return (

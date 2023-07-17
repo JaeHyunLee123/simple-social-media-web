@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
 import useMutation from "lib/client/useMutation";
@@ -22,7 +22,6 @@ export default () => {
     getValues,
     formState: { errors },
     handleSubmit,
-    reset,
     setFocus,
   } = useForm<ISignUpForm>({ mode: "all" });
   const [signIn, { result: mutationResult, isLoading }] =
@@ -99,7 +98,7 @@ export default () => {
           type="password"
         />
         <p>{errors?.passwordConfirm?.message || ""}</p>
-        <button>Sign in</button>
+        <button>Sign Up</button>
       </form>
     </Layout>
   );

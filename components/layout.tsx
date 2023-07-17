@@ -33,7 +33,6 @@ const Layout = ({
           <Link href="/">Home</Link>
           <Link href="/create-account">Sign up</Link>
           <Link href="/log-in">Log in</Link>
-          <Link href="/tweet/1">Detail</Link>
         </nav>
       ) : null}
     </div>

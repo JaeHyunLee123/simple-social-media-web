@@ -5,7 +5,7 @@ export type ErrorMessage =
   | "passwordNotConfirmed"
   | "usernameAlreadyExist"
   | "passwordIncorrect"
-  | "noUserExist"
+  | "noExist"
   | "creationFailed";
 
 export interface IResposeType {

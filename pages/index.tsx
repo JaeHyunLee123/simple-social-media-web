@@ -29,12 +29,13 @@ export default () => {
     reset,
   } = useForm<ITweetForm>();
   const [tweet, { isLoading }] = useMutation("api/tweet");
-  const { data } = useSWR<ITweetResponse>("/api/tweet");
+  const { data, mutate } = useSWR<ITweetResponse>("/api/tweet");
 
   const onValid = (tweetData: ITweetForm) => {
     if (isLoading) return;
     reset();
     tweet(tweetData);
+    if (data) mutate({ ...data }, true);
   };
 
   return (

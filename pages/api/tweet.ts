@@ -7,31 +7,45 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<IResposeType>
 ) => {
-  const {
-    body: { tweet },
-    session: { user },
-  } = req;
+  if (req.method === "POST") {
+    const {
+      body: { tweet },
+      session: { user },
+    } = req;
 
-  if (!(tweet && user))
-    return res.status(400).json({ ok: false, error: "requireEveryData" });
+    if (!(tweet && user))
+      return res.status(400).json({ ok: false, error: "requireEveryData" });
 
-  const newTweet = await prisma.tweet.create({
-    data: {
-      text: tweet as string,
-      user: {
-        connect: {
-          id: user?.id,
+    const newTweet = await prisma.tweet.create({
+      data: {
+        text: tweet as string,
+        user: {
+          connect: {
+            id: user?.id,
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!newTweet)
-    return res.status(500).json({ ok: false, error: "creationFailed" });
+    if (!newTweet)
+      return res.status(500).json({ ok: false, error: "creationFailed" });
 
-  res.status(200).json({ ok: true });
+    res.status(200).json({ ok: true });
+  } else if (req.method === "GET") {
+    const tweets = await prisma.tweet.findMany({
+      include: {
+        _count: { select: { likes: true } },
+        user: { select: { username: true } },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+
+    return res.status(200).json({ ok: true, tweets });
+  }
 };
 
 export default withApiSession(
-  withHandler({ methods: ["POST"], handler, isPrivate: true })
+  withHandler({ methods: ["POST", "GET"], handler, isPrivate: true })
 );

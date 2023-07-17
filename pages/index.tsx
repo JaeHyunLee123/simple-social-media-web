@@ -3,9 +3,21 @@ import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
 import useUser from "@lib/client/useUser";
 import useMutation from "@lib/client/useMutation";
+import useSWR from "swr";
+import { Tweet, User } from "@prisma/client";
 
 interface ITweetForm {
   tweet: string;
+}
+
+interface ITweetWithLikesAndUser extends Tweet {
+  _count: { likes: number };
+  user: { username: string };
+}
+
+interface ITweetResponse {
+  ok: boolean;
+  tweets: ITweetWithLikesAndUser[];
 }
 
 export default () => {
@@ -17,6 +29,7 @@ export default () => {
     reset,
   } = useForm<ITweetForm>();
   const [tweet, { isLoading }] = useMutation("api/tweet");
+  const { data } = useSWR<ITweetResponse>("/api/tweet");
 
   const onValid = (tweetData: ITweetForm) => {
     if (isLoading) return;
@@ -27,10 +40,10 @@ export default () => {
   return (
     <Layout>
       <h1>Home</h1>
-      {[1, 2, 3].map((_, i) => (
-        <div key={i}>
-          <h3>Dummy user</h3>
-          <span>Dummy tweet</span>
+      {data?.tweets.map((tweet) => (
+        <div key={tweet.id}>
+          <h3>{tweet.text}</h3>
+          <span>{tweet.user.username}</span>
           <hr />
         </div>
       ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
 import useMutation from "lib/client/useMutation";
@@ -22,9 +22,12 @@ export default () => {
     getValues,
     formState: { errors },
     handleSubmit,
+    reset,
+    setFocus,
   } = useForm<ISignUpForm>({ mode: "all" });
   const [signIn, { result: mutationResult, isLoading }] =
     useMutation<IMutationResult>("/api/user/sign-in");
+  const [isUsernameExist, setIsUsernameExist] = useState(false);
 
   const onValid = (formData: ISignUpForm) => {
     if (isLoading) return;
@@ -33,6 +36,10 @@ export default () => {
 
   useEffect(() => {
     if (mutationResult?.ok) router.push("/log-in");
+    if (mutationResult?.error === "usernameAlreadyExist") {
+      setFocus("username");
+      setIsUsernameExist(true);
+    }
   }, [mutationResult, router]);
 
   return (
@@ -50,9 +57,10 @@ export default () => {
           })}
           id="username"
           placeholder="Super Duper Nickname"
+          onChange={() => setIsUsernameExist(false)}
         />
         <p>
-          {mutationResult?.error === "usernameAlreadyExist"
+          {isUsernameExist
             ? "This username is already exist"
             : errors.username?.message || ""}
         </p>

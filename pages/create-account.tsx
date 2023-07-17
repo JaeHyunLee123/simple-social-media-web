@@ -24,13 +24,13 @@ export default () => {
     handleSubmit,
     setFocus,
   } = useForm<ISignUpForm>({ mode: "all" });
-  const [signIn, { result: mutationResult, isLoading }] =
+  const [signup, { result: mutationResult, isLoading }] =
     useMutation<IMutationResult>("/api/user/sign-in");
   const [isUsernameExist, setIsUsernameExist] = useState(false);
 
   const onValid = (formData: ISignUpForm) => {
     if (isLoading) return;
-    signIn(formData);
+    signup(formData);
   };
 
   useEffect(() => {

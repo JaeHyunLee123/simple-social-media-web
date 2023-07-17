@@ -30,7 +30,7 @@ export default () => {
     reset,
   } = useForm<ITweetForm>();
   const [tweet, { isLoading }] = useMutation("api/tweet");
-  const { data, mutate } = useSWR<ITweetResponse>("/api/tweet");
+  const { data, mutate, isValidating } = useSWR<ITweetResponse>("/api/tweet");
 
   const onValid = (tweetData: ITweetForm) => {
     if (isLoading) return;
@@ -42,15 +42,19 @@ export default () => {
   return (
     <Layout>
       <h1>Home</h1>
-      {data?.tweets.map((tweet) => (
-        <Link href={`/tweet/${tweet.id}`} key={tweet.id}>
-          <div>
-            <h3>{tweet.text}</h3>
-            <span>{tweet.user.username}</span>
-            <hr />
-          </div>
-        </Link>
-      ))}
+      {isValidating ? (
+        <h2>Loading</h2>
+      ) : (
+        data?.tweets.map((tweet) => (
+          <Link href={`/tweet/${tweet.id}`} key={tweet.id}>
+            <div>
+              <h3>{tweet.text}</h3>
+              <span>{tweet.user.username}</span>
+              <hr />
+            </div>
+          </Link>
+        ))
+      )}
       <form onSubmit={handleSubmit(onValid)}>
         <textarea
           {...register("tweet", {

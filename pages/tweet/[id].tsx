@@ -3,20 +3,37 @@ import Layout from "@components/layout";
 import useSWR from "swr";
 import { Tweet } from "@prisma/client";
 import { useRouter } from "next/router";
+import { formatDate } from "@lib/client/utils";
 interface ITweetWithLikesAndUser extends Tweet {
   _count: { likes: number };
   user: { username: string };
 }
 
+interface ITweetResponse {
+  ok: boolean;
+  tweet: ITweetWithLikesAndUser;
+}
+
 export default () => {
   const router = useRouter();
-  const {} = useSWR<ITweetWithLikesAndUser>(
+  const { data, isValidating } = useSWR<ITweetResponse>(
     router.query.id ? `/api/tweet/${router.query.id}` : null
   );
 
   return (
     <Layout>
-      <h1>Tweet detail</h1>
+      {isValidating ? (
+        <h2>Loading</h2>
+      ) : (
+        <div>
+          <p>{data?.tweet.text}</p>
+          <p>{`Written by ${data?.tweet.user.username}`}</p>
+          <p>{`Updated at ${formatDate(
+            data?.tweet.updatedAt.toString() || ""
+          )}`}</p>
+          <p>{`Likes: ${data?.tweet._count.likes}`}</p>
+        </div>
+      )}
     </Layout>
   );
 };

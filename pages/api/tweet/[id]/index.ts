@@ -25,7 +25,17 @@ const handler = async (
 
   if (!tweet) return res.status(400).json({ ok: false, error: "noExist" });
 
-  return res.status(200).json({ ok: true, tweet });
+  const isLike = !!(await prisma.like.findFirst({
+    where: {
+      userId: user.id,
+      tweetId: tweet.id,
+    },
+    select: {
+      id: true,
+    },
+  }));
+
+  return res.status(200).json({ ok: true, tweet, isLike });
 };
 export default withApiSession(
   withHandler({ methods: ["GET"], handler, isPrivate: true })

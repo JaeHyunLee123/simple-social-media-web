@@ -5,7 +5,7 @@ import { Tweet } from "@prisma/client";
 import { useRouter } from "next/router";
 import { formatDate } from "@lib/client/utils";
 import useMutation from "@lib/client/useMutation";
-import tweet from "pages/api/tweet";
+
 interface ITweetWithLikesAndUser extends Tweet {
   _count: { likes: number };
   user: { username: string };
@@ -25,17 +25,18 @@ export default () => {
   const [toggleLike, { isLoading }] = useMutation(
     router.query.id ? `/api/tweet/${router.query.id}/likes` : ""
   );
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState(-1);
 
   useEffect(() => {
-    if (data) setLikes(data.tweet._count.likes);
+    if (data && likes === -1) setLikes(data.tweet._count.likes);
   }, [data]);
 
   const onLikeClick = () => {
     if (isLoading || !data) return;
     toggleLike({});
-    data.isLike ? setLikes((prev) => prev + 1) : setLikes((prev) => prev - 1);
     mutate({ ...data, isLike: !data.isLike }, false);
+    console.log(data.isLike);
+    data.isLike ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1);
   };
 
   return (

@@ -8,9 +8,6 @@ interface LayoutProps {
 
 const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
   const router = useRouter();
-  const onBackClick = () => {
-    router.back();
-  };
 
   const onLogoutClick = () => {
     fetch("/api/user/log-out", { method: "DELETE" }).finally(() => {
@@ -21,29 +18,13 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
 
   return (
     <div className="px-4 py-16 relative">
-      <nav className="flex justify-between items-center fixed top-0 left-0 w-full px-4 pt-5 text-lg">
-        <button onClick={onBackClick}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
-        </button>
+      <nav className="flex justify-end items-center fixed top-0 left-0 w-full px-4 pt-5 text-lg">
         {isLogedIn ? (
-          <button onClick={onLogoutClick}>Log out</button>
+          <button onClick={onLogoutClick}>LogOut</button>
         ) : (
           <div className="flex justify-center space-x-2">
-            <Link href="/create-account">Sign up</Link>
-            <Link href="/log-in">Log in</Link>
+            <Link href="/create-account">SignUp</Link>
+            <Link href="/log-in">LogIn</Link>
           </div>
         )}
       </nav>

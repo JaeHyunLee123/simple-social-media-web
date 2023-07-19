@@ -30,6 +30,7 @@ export default () => {
   const onValid = (formData: ILoginForm) => {
     if (isLoading) return;
     login(formData);
+    router.replace("/");
   };
 
   useEffect(() => {

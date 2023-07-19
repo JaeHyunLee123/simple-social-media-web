@@ -38,14 +38,14 @@ export default () => {
       setIsPasswordCorrect(false);
       setFocus("password");
     }
-    if (mutationResult?.error === "noUserExist") {
+    if (mutationResult?.error === "noExist") {
       setIsUserExist(false);
       setFocus("username");
     }
   }, [router, mutationResult]);
 
   return (
-    <Layout>
+    <Layout isLogedIn={false}>
       <h1>Log in</h1>
       <form onSubmit={handleSubmit(onValid)}>
         <label htmlFor="username">Username</label>

@@ -42,7 +42,7 @@ export default () => {
   }, [mutationResult, router]);
 
   return (
-    <Layout>
+    <Layout isLogedIn={false}>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit(onValid)}>
         <label htmlFor="username">Username</label>

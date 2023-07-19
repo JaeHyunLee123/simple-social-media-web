@@ -19,7 +19,7 @@ const handler = async (
     },
   });
 
-  if (!user) return res.status(400).json({ ok: false, error: "noUserExist" });
+  if (!user) return res.status(400).json({ ok: false, error: "noExist" });
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
 

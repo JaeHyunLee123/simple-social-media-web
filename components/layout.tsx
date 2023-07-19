@@ -3,38 +3,36 @@ import { useRouter } from "next/router";
 
 interface LayoutProps {
   children: React.ReactNode;
-  title?: string;
-  canGoBack?: boolean;
-  hasTabBar?: boolean;
+  isLogedIn?: boolean;
 }
 
-const Layout = ({
-  title,
-  canGoBack = true,
-  hasTabBar = true,
-  children,
-}: LayoutProps) => {
+const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
   const router = useRouter();
-  const onClick = () => {
+  const onBackClick = () => {
     router.back();
+  };
+
+  const onLogoutClick = () => {
+    fetch("/api/user/log-out", { method: "DELETE" }).finally(() => {
+      router.replace("/log-in");
+    });
   };
 
   return (
     <div>
-      <header>
-        {canGoBack ? <button onClick={onClick}>{"<-"}</button> : <div />}
-        {title ? <span>{title}</span> : <div />}
-        <div></div>
-      </header>
+      <nav>
+        <button onClick={onBackClick}>{"<-"}</button>
+        {isLogedIn ? <Link href="/">Home</Link> : null}
+        {isLogedIn ? (
+          <button onClick={onLogoutClick}>Log out</button>
+        ) : (
+          <div>
+            <Link href="/create-account">Sign up</Link>
+            <Link href="/log-in">Log in</Link>
+          </div>
+        )}
+      </nav>
       <div>{children}</div>
-
-      {hasTabBar ? (
-        <nav>
-          <Link href="/">Home</Link>
-          <Link href="/create-account">Sign up</Link>
-          <Link href="/log-in">Log in</Link>
-        </nav>
-      ) : null}
     </div>
   );
 };

@@ -50,6 +50,7 @@ export default () => {
             <div>
               <h3>{tweet.text}</h3>
               <span>{tweet.user.username}</span>
+              <p>Likes: {tweet._count.likes}</p>
               <hr />
             </div>
           </Link>

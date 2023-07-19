@@ -13,6 +13,8 @@ const handler = async (
     },
   });
 
+  if (!profile) res.status(404).json({ ok: false });
+
   res.status(200).json({ ok: true, profile });
 };
 

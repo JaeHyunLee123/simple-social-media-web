@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import useMutation from "@lib/client/useMutation";
 import { useRouter } from "next/router";
 import type { ErrorMessage } from "@lib/server/withHandler";
-import { cls } from "@lib/client/utils";
 import Input from "@components/input";
 
 interface ILoginForm {

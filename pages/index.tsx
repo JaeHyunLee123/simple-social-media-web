@@ -103,7 +103,7 @@ export default () => {
       </button>
       <form
         className={cls(
-          "rounded-lg transition-all fixed border-2 border-blue-400 mx-auto left-0 right-0 w-11/12 bg-white h-1/2 flex flex-col justify-center items-center p-2 space-y-2",
+          "rounded-lg transition-all fixed border-2 border-blue-400 mx-auto left-0 right-0 w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 ",
           isTweeting ? "bottom-2" : "-bottom-full"
         )}
         onSubmit={handleSubmit(onValid)}
@@ -121,11 +121,13 @@ export default () => {
             },
           })}
           rows={10}
-          className="border border-black w-4/5 focus:outline-none px-2 py-1"
+          className="rounded w-4/5 focus:outline-none px-2 py-1"
         />
         <p className="text-sm text-red-500">{errors?.tweet?.message || ""}</p>
         <button
-          className={cls("bg-blue-300 text-white px-4 w-2/3 py-2 rounded")}
+          className={cls(
+            "bg-blue-300 shadow text-white px-4 w-2/3 py-2 rounded ring ring-offset-2 ring-blue-400"
+          )}
         >
           Tweet!
         </button>

@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import useMutation from "@lib/client/useMutation";
 import { useRouter } from "next/router";
 import type { ErrorMessage } from "@lib/server/withHandler";
+import { cls } from "@lib/client/utils";
+import Input from "@components/input";
 
 interface ILoginForm {
   username: string;
@@ -47,48 +49,59 @@ export default () => {
 
   return (
     <Layout isLogedIn={false}>
-      <h1>Log in</h1>
-      <form onSubmit={handleSubmit(onValid)}>
-        <label htmlFor="username">Username</label>
-        <input
-          {...register("username", {
-            required: "Username is required",
-            minLength: {
-              value: 5,
-              message: "Username should be longer than 5 letters",
-            },
-          })}
-          id="username"
-          placeholder="Super Duper Nickname"
-          onChange={() => setIsUserExist(true)}
-        />
-        <p>
-          {isUserExist
-            ? errors.username?.message || ""
-            : "This username doesn't exist"}
-        </p>
-        <label htmlFor="password">Password</label>
-        <input
-          {...register("password", {
-            required: "Password is required",
-            pattern: {
-              value:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-              message:
-                "Password should be longer than 8 letters and has at least one upppercase, one lowercase, one number and one special character",
-            },
-          })}
-          id="password"
-          type="password"
-          onChange={() => setIsPasswordCorrect(true)}
-        />
-        <p>
-          {isPasswordCorrect
-            ? errors?.password?.message || ""
-            : "Incorrect password"}
-        </p>
-        <button>Log In</button>
-      </form>
+      <div className="flex flex-col items-center">
+        <h1 className="font-bold text-5xl mb-10">Log In</h1>
+        <form onSubmit={handleSubmit(onValid)}>
+          <Input
+            name="username"
+            label="Username"
+            placeholder="Super duper username"
+            register={register("username", {
+              required: "Username is required",
+              minLength: {
+                value: 5,
+                message: "Username should be longer than 5 letters",
+              },
+              maxLength: {
+                value: 20,
+                message: "Username should be shorter than 20 letters",
+              },
+            })}
+            onChange={() => {
+              setIsUserExist(true);
+            }}
+            isError={!isUserExist || !!errors.username}
+            errorMessage={
+              isUserExist
+                ? errors.username?.message || ""
+                : "This username doesn't exist"
+            }
+          />
+
+          <Input
+            name="password"
+            label="Password"
+            type="password"
+            register={register("password", {
+              required: "Password is required",
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                message:
+                  "Password should be longer than 8 letters and has at least one upppercase, one lowercase, one number and one special character",
+              },
+            })}
+            isError={!isPasswordCorrect || !!errors.password}
+            onChange={() => setIsPasswordCorrect(true)}
+            errorMessage={
+              isPasswordCorrect
+                ? errors?.password?.message || ""
+                : "Incorrect password"
+            }
+          />
+          <button>Log In</button>
+        </form>
+      </div>
     </Layout>
   );
 };

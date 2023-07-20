@@ -51,7 +51,10 @@ export default () => {
     <Layout isLogedIn={false}>
       <div className="flex flex-col items-center">
         <h1 className="font-bold text-5xl mb-10">Log In</h1>
-        <form onSubmit={handleSubmit(onValid)}>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="flex flex-col items-center space-y-3"
+        >
           <Input
             name="username"
             label="Username"
@@ -99,7 +102,9 @@ export default () => {
                 : "Incorrect password"
             }
           />
-          <button>Log In</button>
+          <button className="text-white shadow px-4 py-2 bg-blue-300 rounded">
+            Log In
+          </button>
         </form>
       </div>
     </Layout>

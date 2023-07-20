@@ -23,8 +23,8 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
           <button onClick={onLogoutClick}>LogOut</button>
         ) : (
           <div className="flex justify-center space-x-2">
-            <Link href="/create-account">SignUp</Link>
-            <Link href="/log-in">LogIn</Link>
+            <Link href="/create-account">Sign-up</Link>
+            <Link href="/log-in">Log-in</Link>
           </div>
         )}
       </nav>

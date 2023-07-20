@@ -83,7 +83,7 @@ export default () => {
         onClick={() => setIsTweeting((prev) => !prev)}
         className={cls(
           "rounded-full p-2 bg-blue-300 shadow-lg fixed right-4 transition-all",
-          isTweeting ? "bottom-[52%]" : "bottom-2"
+          isTweeting ? "bottom-[52%] rotate-45" : "bottom-2"
         )}
       >
         <svg
@@ -123,8 +123,10 @@ export default () => {
           rows={10}
           className="border border-black w-4/5 focus:outline-none px-2 py-1"
         />
-        <p>{errors?.tweet?.message || ""}</p>
-        <button className="bg-blue-300 text-white px-4 w-2/3 py-2 rounded">
+        <p className="text-sm text-red-500">{errors?.tweet?.message || ""}</p>
+        <button
+          className={cls("bg-blue-300 text-white px-4 w-2/3 py-2 rounded")}
+        >
           Tweet!
         </button>
       </form>

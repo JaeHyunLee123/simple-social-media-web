@@ -50,7 +50,7 @@ export default () => {
         <div className="flex flex-col space-y-4">
           {data?.tweets.map((tweet) => (
             <Link href={`/tweet/${tweet.id}`} key={tweet.id}>
-              <div>
+              <div className="bg-white rounded-lg shadow px-4 py-2">
                 <div className="flex justify-between items-center w-full">
                   <h3 className="w-2/3 text-lg">{tweet.text}</h3>
                   <div className="w-1/3 flex flex-col items-end">
@@ -74,32 +74,37 @@ export default () => {
                     </p>
                   </div>
                 </div>
-                <div className="border-b-2 w-full mt-2" />
               </div>
             </Link>
           ))}
         </div>
       )}
-      <button onClick={() => setIsTweeting((prev) => !prev)}>
+      <button
+        onClick={() => setIsTweeting((prev) => !prev)}
+        className={cls(
+          "rounded-full p-2 bg-blue-300 shadow-lg fixed right-4 transition-all",
+          isTweeting ? "bottom-[52%]" : "bottom-2"
+        )}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-6 h-6 text-white"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+            d="M12 4.5v15m7.5-7.5h-15"
           />
         </svg>
       </button>
       <form
         className={cls(
-          "transition-all fixed border border-black mx-auto left-0 right-0 w-4/5",
-          isTweeting ? "bottom-2" : "-bottom-72"
+          "rounded-lg transition-all fixed border-2 border-blue-400 mx-auto left-0 right-0 w-11/12 bg-white h-1/2 flex flex-col justify-center items-center p-2 space-y-2",
+          isTweeting ? "bottom-2" : "-bottom-full"
         )}
         onSubmit={handleSubmit(onValid)}
       >
@@ -116,9 +121,12 @@ export default () => {
             },
           })}
           rows={10}
+          className="border border-black w-4/5 focus:outline-none px-2 py-1"
         />
         <p>{errors?.tweet?.message || ""}</p>
-        <button>Tweet!</button>
+        <button className="bg-blue-300 text-white px-4 w-2/3 py-2 rounded">
+          Tweet!
+        </button>
       </form>
     </Layout>
   );

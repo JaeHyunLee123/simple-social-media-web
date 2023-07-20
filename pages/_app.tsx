@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: any) {
           fetch(url).then((response) => response.json()),
       }}
     >
-      <div className="bg-white text-gray-900">
+      <div className="bg-slate-50 text-gray-900">
         <Component {...pageProps} />
       </div>
     </SWRConfig>

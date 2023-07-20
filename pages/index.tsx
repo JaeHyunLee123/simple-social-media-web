@@ -44,6 +44,14 @@ export default () => {
     }, 500);
   };
 
+  useEffect(() => {
+    if (isTweeting) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isTweeting]);
+
   return (
     <Layout>
       {isValidating ? (
@@ -111,9 +119,9 @@ export default () => {
       </button>
       <form
         className={cls(
-          "rounded-lg transition-all fixed mx-auto left-0 right-0 w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 max-h-[50%]",
+          "rounded-2xl transition-all fixed mx-auto left-0 right-0 w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 max-h-[50%]",
           isTweeting ? "bottom-2" : "-bottom-full",
-          "dark:bg-gray-700"
+          "dark:bg-zinc-700"
         )}
         onSubmit={handleSubmit(onValid)}
       >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "@components/layout";
 import { useForm } from "react-hook-form";
 import useUser from "@lib/client/useUser";
@@ -39,7 +39,9 @@ export default () => {
     if (isLoading) return;
     reset();
     tweet(tweetData);
-    if (data) mutate({ ...data }, true);
+    setTimeout(() => {
+      mutate();
+    }, 500);
   };
 
   return (
@@ -50,7 +52,12 @@ export default () => {
         <div className="flex flex-col space-y-4">
           {data?.tweets.map((tweet) => (
             <Link href={`/tweet/${tweet.id}`} key={tweet.id}>
-              <div className="bg-white rounded-lg shadow px-4 py-2">
+              <div
+                className={cls(
+                  "bg-white rounded-lg shadow px-4 py-2",
+                  "dark:bg-slate-700"
+                )}
+              >
                 <div className="flex justify-between items-center w-full">
                   <h3 className="w-2/3 text-lg">{tweet.text}</h3>
                   <div className="w-1/3 flex flex-col items-end">
@@ -83,7 +90,8 @@ export default () => {
         onClick={() => setIsTweeting((prev) => !prev)}
         className={cls(
           "rounded-full p-2 bg-blue-300 shadow-lg fixed right-4 transition-all",
-          isTweeting ? "bottom-[52%] rotate-45" : "bottom-2"
+          isTweeting ? "bottom-[52%] rotate-45" : "bottom-2",
+          "dark:bg-blue-700"
         )}
       >
         <svg
@@ -103,8 +111,9 @@ export default () => {
       </button>
       <form
         className={cls(
-          "rounded-lg transition-all fixed border-2 border-blue-400 mx-auto left-0 right-0 w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 ",
-          isTweeting ? "bottom-2" : "-bottom-full"
+          "rounded-lg transition-all fixed mx-auto left-0 right-0 w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 max-h-[50%]",
+          isTweeting ? "bottom-2" : "-bottom-full",
+          "dark:bg-gray-700"
         )}
         onSubmit={handleSubmit(onValid)}
       >
@@ -121,12 +130,13 @@ export default () => {
             },
           })}
           rows={10}
-          className="rounded w-4/5 focus:outline-none px-2 py-1"
+          className="rounded w-4/5 focus:outline-none px-2 py-1  dark:bg-gray-600"
         />
         <p className="text-sm text-red-500">{errors?.tweet?.message || ""}</p>
         <button
           className={cls(
-            "bg-blue-300 shadow text-white px-4 w-2/3 py-2 rounded ring ring-offset-2 ring-blue-400"
+            "bg-blue-300 shadow text-slate-50 px-4 w-2/3 py-2 rounded ring ring-offset-2 ring-blue-400",
+            "dark:bg-blue-800 dark:ring-blue-900"
           )}
         >
           Tweet!

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import { cls } from "@lib/client/utils";
 interface LayoutProps {
   children: React.ReactNode;
   isLogedIn?: boolean;
@@ -18,7 +18,12 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
 
   return (
     <div className="px-4 py-16 relative min-h-screen">
-      <nav className="flex justify-end items-center fixed top-0 left-0 w-full px-4 pt-5 text-lg bg-slate-50">
+      <nav
+        className={cls(
+          "flex justify-end items-center fixed top-0 left-0 w-full px-4 pt-5 text-lg bg-slate-50",
+          "dark:bg-gray-900"
+        )}
+      >
         {isLogedIn ? (
           <button onClick={onLogoutClick}>LogOut</button>
         ) : (

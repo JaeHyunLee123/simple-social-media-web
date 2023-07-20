@@ -46,7 +46,12 @@ export default () => {
       ) : (
         <div className="flex flex-col space-y-2">
           <p className="font-bold text-xl">{data?.tweet.user.username}</p>
-          <p className="bg-white text-lg px-2 py-1 border-blue-400 rounded shadow shadow-blue-500">
+          <p
+            className={cls(
+              "bg-white text-lg px-4 py-2  rounded ",
+              " dark:bg-slate-700"
+            )}
+          >
             {data?.tweet.text}
           </p>
           <div className="flex justify-between items-center">
@@ -60,7 +65,9 @@ export default () => {
                   stroke="currentColor"
                   className={cls(
                     "w-6 h-6",
-                    data?.isLike ? "text-red-500" : "text-black"
+                    data?.isLike
+                      ? "text-red-500"
+                      : "text-black dark:text-white "
                   )}
                 >
                   <path

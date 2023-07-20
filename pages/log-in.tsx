@@ -101,7 +101,7 @@ export default () => {
                 : "Incorrect password"
             }
           />
-          <button className="text-white shadow px-4 py-2 bg-blue-300 rounded">
+          <button className="text-white shadow px-4 py-2 bg-blue-300 rounded dark:bg-blue-800">
             Log In
           </button>
         </form>

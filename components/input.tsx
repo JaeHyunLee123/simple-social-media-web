@@ -32,7 +32,7 @@ const Input = ({
         placeholder={placeholder}
         onChange={onChange}
         className={cls(
-          "px-4 py-2 border border-blue-400 rounded focus:outline-none focus:border-2",
+          "px-4 py-2 border border-blue-400 rounded focus:outline-none focus:border-2 text-black",
           isError ? "border-red-500" : ""
         )}
         type={type}

@@ -1,5 +1,6 @@
 import { SWRConfig } from "swr";
 import "../global.css";
+import { cls } from "@lib/client/utils";
 
 export default function App({ Component, pageProps }: any) {
   return (
@@ -9,7 +10,12 @@ export default function App({ Component, pageProps }: any) {
           fetch(url).then((response) => response.json()),
       }}
     >
-      <div className="bg-slate-50 text-gray-900">
+      <div
+        className={cls(
+          "bg-slate-50 text-gray-900",
+          "dark:bg-gray-900 dark:text-slate-50"
+        )}
+      >
         <Component {...pageProps} />
       </div>
     </SWRConfig>

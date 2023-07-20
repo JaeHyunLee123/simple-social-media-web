@@ -48,7 +48,7 @@ export default () => {
         <h1 className="font-bold text-5xl mb-10">Sign Up</h1>
         <form
           onSubmit={handleSubmit(onValid)}
-          className="flex flex-col items-center space-y-3"
+          className="flex flex-col items-center space-y-3 w-4/5 max-w-[450px]"
         >
           <Input
             name="username"
@@ -106,6 +106,7 @@ export default () => {
             })}
             isError={!!errors.passwordConfirm}
             errorMessage={errors?.passwordConfirm?.message}
+            type="password"
           />
 
           <button className="text-white shadow px-4 py-2 bg-blue-300 rounded">

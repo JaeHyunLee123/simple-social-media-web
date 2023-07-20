@@ -53,7 +53,7 @@ export default () => {
         <h1 className="font-bold text-5xl mb-10">Log In</h1>
         <form
           onSubmit={handleSubmit(onValid)}
-          className="flex flex-col items-center space-y-3"
+          className="flex flex-col items-center space-y-3 w-4/5 max-w-[450px]"
         >
           <Input
             name="username"

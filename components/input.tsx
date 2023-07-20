@@ -11,7 +11,6 @@ interface IInputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   errorMessage?: string;
-  [key: string]: any;
 }
 
 const Input = ({
@@ -23,14 +22,12 @@ const Input = ({
   onChange,
   isError = false,
   errorMessage,
-  ...rest
 }: IInputProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <label htmlFor={name}>{label}</label>
       <input
         {...register}
-        {...rest}
         id={name}
         placeholder={placeholder}
         onChange={onChange}

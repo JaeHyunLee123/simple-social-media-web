@@ -17,7 +17,7 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
   const isHome = router.pathname === "/";
 
   return (
-    <div className="px-4 py-16 relative min-h-screen">
+    <div className="px-4 py-16 relative min-h-screen max-w-7xl mx-auto">
       <nav
         className={cls(
           "flex justify-end items-center fixed top-0 left-0 w-full px-4 pt-5 text-lg bg-slate-50",

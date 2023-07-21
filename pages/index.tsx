@@ -57,7 +57,13 @@ export default () => {
       {isValidating ? (
         <h2>Loading</h2>
       ) : (
-        <div className="flex flex-col space-y-4">
+        <div
+          className={cls(
+            "flex flex-col space-y-4",
+            "md:grid md:grid-cols-2 md:gap-2",
+            "lg:grid-cols-3"
+          )}
+        >
           {data?.tweets.map((tweet) => (
             <Link href={`/tweet/${tweet.id}`} key={tweet.id}>
               <div
@@ -66,10 +72,22 @@ export default () => {
                   "dark:bg-slate-700"
                 )}
               >
-                <div className="flex justify-between items-center w-full">
-                  <h3 className="w-2/3 text-lg">{tweet.text}</h3>
-                  <div className="w-1/3 flex flex-col items-end">
-                    <span className="text-sm">{tweet.user.username}</span>
+                <div
+                  className={cls(
+                    "flex justify-between items-center w-full",
+                    "md:flex-col"
+                  )}
+                >
+                  <h3 className="w-2/3 text-lg truncate md:w-full">
+                    {tweet.text}
+                  </h3>
+                  <div
+                    className={cls(
+                      "w-1/3 flex flex-col items-end",
+                      "md:flex-row md:justify-between md:w-full"
+                    )}
+                  >
+                    <span className="text-sm ">{tweet.user.username}</span>
                     <p className="flex items-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -119,9 +137,10 @@ export default () => {
       </button>
       <form
         className={cls(
-          "rounded-2xl transition-all fixed mx-auto left-0 right-0 w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 max-h-[50%]",
-          isTweeting ? "bottom-2" : "-bottom-full",
-          "dark:bg-zinc-700"
+          "rounded-2xl transition-all fixed right-[50%] translate-x-[50%]  w-11/12 bg-blue-200 h-1/2 flex flex-col justify-center items-center p-2 space-y-2 max-h-[50%] max-w-lg",
+          isTweeting ? "bottom-2 md:right-4" : "-bottom-full  md:-right-full ",
+          "dark:bg-zinc-700",
+          "md:w-1/2 md:translate-x-0"
         )}
         onSubmit={handleSubmit(onValid)}
       >

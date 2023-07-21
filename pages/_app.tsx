@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: any) {
     >
       <div
         className={cls(
-          "bg-slate-50 text-gray-900",
+          "bg-slate-50 text-gray-900 w-full mx-auto",
           "dark:bg-gray-900 dark:text-slate-50"
         )}
       >

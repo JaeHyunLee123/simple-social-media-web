@@ -39,18 +39,21 @@ export default () => {
     if (isLoading) return;
     reset();
     tweet(tweetData);
-    setTimeout(() => {
-      mutate();
-    }, 500);
+    setIsTweeting(false);
   };
 
   useEffect(() => {
+    //Lock scroll when user is tweeting
     if (isTweeting) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
   }, [isTweeting]);
+
+  useEffect(() => {
+    if (!isLoading) mutate();
+  }, [isLoading]);
 
   return (
     <Layout>

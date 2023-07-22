@@ -20,7 +20,7 @@ const handler = async (
 
   if (!user) res.status(400).json({ ok: false, error: "noExist" });
 
-  const likedTweetsPromise = prisma.like.findMany({
+  const likingTweetsPromise = prisma.like.findMany({
     where: {
       userId: user?.id,
     },
@@ -36,17 +36,21 @@ const handler = async (
     where: {
       userId: user?.id,
     },
+    include: {
+      _count: { select: { likes: true } },
+      user: { select: { username: true } },
+    },
     orderBy: {
       createdAt: "desc",
     },
   });
 
-  const [likedTweets, postedTweets] = await Promise.all([
-    likedTweetsPromise,
+  const [likingTweets, postedTweets] = await Promise.all([
+    likingTweetsPromise,
     postedTweetsPromise,
   ]);
 
-  return res.status(200).json({ ok: true, user, likedTweets, postedTweets });
+  return res.status(200).json({ ok: true, user, likingTweets, postedTweets });
 };
 export default withApiSession(
   withHandler({ methods: ["GET"], handler, isPrivate: true })

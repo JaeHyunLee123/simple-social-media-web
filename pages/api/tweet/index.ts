@@ -38,7 +38,7 @@ const handler = async (
         user: { select: { username: true } },
       },
       orderBy: {
-        id: "desc",
+        createdAt: "desc",
       },
     });
 

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { formatDate } from "@lib/client/utils";
 import useMutation from "@lib/client/useMutation";
 import { cls } from "@lib/client/utils";
+import useUser from "@lib/client/useUser";
 
 interface ITweetWithLikesAndUser extends Tweet {
   _count: { likes: number };
@@ -19,6 +20,7 @@ interface ITweetResponse {
 }
 
 export default () => {
+  useUser();
   const router = useRouter();
   const { data, isValidating, mutate } = useSWR<ITweetResponse>(
     router.query.id ? `/api/tweet/${router.query.id}` : null

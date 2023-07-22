@@ -25,7 +25,12 @@ const handler = async (
       userId: user?.id,
     },
     include: {
-      tweet: true,
+      tweet: {
+        include: {
+          _count: { select: { likes: true } },
+          user: { select: { username: true } },
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",

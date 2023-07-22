@@ -5,14 +5,14 @@ import useSWR from "swr";
 import { Like, Tweet as ITweet, User } from "@prisma/client";
 import { cls, formatDate } from "@lib/client/utils";
 import Tweet from "@components/tweet";
-interface ILikeWithTweet extends Like {
-  tweet: ITweet;
-}
-
 interface ITweetWithLikesAndUser extends ITweet {
   _count: { likes: number };
   user: { username: string };
 }
+interface ILikeWithTweet extends Like {
+  tweet: ITweetWithLikesAndUser;
+}
+
 interface IProfileResponse {
   ok: boolean;
   user: User;

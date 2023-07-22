@@ -64,7 +64,9 @@ export default () => {
           ? data?.postedTweets.map((tweet) => (
               <Tweet tweet={tweet} key={tweet.id}></Tweet>
             ))
-          : null}
+          : data?.likingTweets.map((like) => (
+              <Tweet key={like.id} tweet={like.tweet}></Tweet>
+            ))}
       </div>
     </Layout>
   );

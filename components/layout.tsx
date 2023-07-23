@@ -21,7 +21,7 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
     <div className="px-4 py-16 relative min-h-screen max-w-7xl mx-auto">
       <nav
         className={cls(
-          "flex justify-between items-center fixed top-0 left-0 w-full px-4 pt-5 text-lg bg-slate-50",
+          "flex justify-between items-center fixed top-0 left-0 w-full px-4 py-3 text-lg bg-slate-50",
           "dark:bg-gray-900"
         )}
       >
@@ -38,7 +38,7 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
                   stroke="currentColor"
                   className={cls(
                     "w-8 aspect-square cursor-pointer",
-                    isHome ? "text-gray-50" : "text-gray-400"
+                    isHome ? "text-gray-900 dark:text-gray-50" : "text-gray-400"
                   )}
                 >
                   <path
@@ -57,7 +57,9 @@ const Layout = ({ children, isLogedIn = true }: LayoutProps) => {
                   stroke="currentColor"
                   className={cls(
                     "w-8 aspect-square cursor-pointer",
-                    isProfile ? "text-gray-50" : "text-gray-400"
+                    isProfile
+                      ? "text-gray-900 dark:text-gray-50"
+                      : "text-gray-400"
                   )}
                 >
                   <path

@@ -30,17 +30,21 @@ export default () => {
 
   return (
     <Layout>
-      <h1>{`${data?.user.username}'s proflile`}</h1>
-      <span>{`Signed at ${formatDate(
+      <h1 className="font-bold text-2xl mb-2">{`${data?.user.username}'s proflile`}</h1>
+      <span className="mb-2 block">{`Signed at ${formatDate(
         data?.user.createdAt.toString() || ""
       )}`}</span>
       <hr />
-      <div className="flex justify-around">
+      <div className="flex justify-around py-2">
         <button
           onClick={() => {
             setTweetsCategory("posted");
           }}
-          className={cls(tweetsCategory === "posted" ? "text-red-500" : "")}
+          className={cls(
+            tweetsCategory === "posted"
+              ? "text-red-500 text-xl font-semibold"
+              : ""
+          )}
         >
           Posted
         </button>
@@ -48,7 +52,11 @@ export default () => {
           onClick={() => {
             setTweetsCategory("liking");
           }}
-          className={cls(tweetsCategory === "liking" ? "text-red-500" : "")}
+          className={cls(
+            tweetsCategory === "liking"
+              ? "text-red-500 text-xl font-semibold"
+              : ""
+          )}
         >
           Liking
         </button>
